@@ -1,0 +1,82 @@
+<div class="dashboard">
+  <div class="stats-bar">
+    @for (s of statuses; track s) {
+      <div class="stat" [class]="statusClass(s)">
+        <span class="count">{{ counts[s] }}</span>
+        <span class="label">{{ s }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="toolbar">
+    <input
+      class="search-input"
+      type="text"
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="onSearchChange()"
+      placeholder="🔍 Search library..."
+    />
+    <div class="filters">
+      <select [(ngModel)]="statusFilter" (ngModelChange)="onFilterChange()">
+        <option value="">All Statuses</option>
+        @for (s of statuses; track s) {
+          <option [value]="s">{{ s }}</option>
+        }
+      </select>
+      <select [(ngModel)]="sortBy" (ngModelChange)="applyFilters()">
+        <option value="newest">Newest First</option>
+        <option value="score">Highest Score</option>
+        <option value="title">A–Z</option>
+      </select>
+    </div>
+    <span class="count-label">{{ filtered.length }} ENTRIES</span>
+  </div>
+
+  @if (loading) {
+    <div class="state-msg">LOADING...</div>
+  } @else if (error) {
+    <div class="state-msg error">{{ error }}</div>
+  } @else if (filtered.length === 0) {
+    <div class="state-msg">NO ENTRIES FOUND.<br><a routerLink="/games/new">ADD ONE!</a></div>
+  } @else {
+    <div class="game-grid">
+      @for (game of filtered; track game._id; let i = $index) {
+        <div class="game-card">
+          <div class="card-screen">
+            <span class="entry-num">#{{ String(i + 1).padStart(3, '0') }}</span>
+            @if (game.score !== null && game.score !== undefined) {
+              <span class="score">{{ game.score.toFixed(1) }}</span>
+            }
+          </div>
+
+          <div class="cover-wrap">
+            @if (game['cover']) {
+              <img [src]="game['cover']" [alt]="game.title" />
+            } @else {
+              <div class="no-cover">🎮</div>
+            }
+          </div>
+
+          <div class="card-body">
+            <div class="card-top">
+              <h3 class="title">{{ game.title }}</h3>
+              <span class="status-badge" [class]="statusClass(game.status)">{{ game.status }}</span>
+            </div>
+            <div class="meta">
+              @if (game.platform) { <span>{{ game.platform }}</span> }
+              @if (game.genre) { <span>{{ game.genre }}</span> }
+            </div>
+            @if (game.notes) {
+              <p class="notes">{{ game.notes }}</p>
+            }
+            <div class="card-actions">
+              <a [routerLink]="['/games', game._id]" class="btn-view">VIEW</a>
+              <a [routerLink]="['/games', game._id, 'edit']" class="btn-edit">EDIT</a>
+              <button (click)="delete(game._id!)" class="btn-delete">DEL</button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

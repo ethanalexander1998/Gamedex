@@ -1,0 +1,28 @@
+<header class="dex-header">
+  <div class="dex-top">
+    <div class="dex-light big"></div>
+    <div class="dex-lights-small">
+      <div class="dex-light red"></div>
+      <div class="dex-light yellow"></div>
+      <div class="dex-light green"></div>
+    </div>
+  </div>
+  <nav class="dex-nav">
+    <a class="brand" routerLink="/dashboard">
+      <span class="brand-icon">📟</span>
+      <span class="brand-text">GAMEDEX</span>
+    </a>
+    <div class="nav-links">
+      <a routerLink="/dashboard" routerLinkActive="active">LIBRARY</a>
+      <a routerLink="/games/new" class="btn-new">+ NEW ENTRY</a>
+    </div>
+  </nav>
+</header>
+
+<main class="dex-screen">
+  <router-outlet />
+</main>
+
+<footer class="dex-footer">
+  <span>GAMEDEX — GOTTA PLAY 'EM ALL</span>
+</footer>

@@ -1,0 +1,102 @@
+.dex-header {
+  background: var(--red);
+  box-shadow: 0 4px 0 var(--dark-red), 0 6px 16px rgba(0,0,0,0.6);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .dex-top {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1.5rem 0;
+  }
+
+  .dex-light {
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,0.25);
+
+    &.big {
+      width: 28px;
+      height: 28px;
+      background: radial-gradient(circle at 35% 35%, #88ccff, #1a6aff);
+      box-shadow: 0 0 10px #1a6aff, inset 0 -2px 4px rgba(0,0,0,0.3);
+    }
+    &.red    { width: 10px; height: 10px; background: radial-gradient(circle at 35% 35%, #ff8888, #ff2222); }
+    &.yellow { width: 10px; height: 10px; background: radial-gradient(circle at 35% 35%, #ffee88, var(--yellow)); }
+    &.green  { width: 10px; height: 10px; background: radial-gradient(circle at 35% 35%, #88ff88, #22cc22); }
+  }
+
+  .dex-lights-small {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+  }
+
+  .dex-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1.5rem 0.75rem;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+
+      .brand-icon { font-size: 1.4rem; }
+      .brand-text {
+        font-family: var(--pixel);
+        font-size: 0.9rem;
+        color: #fff;
+        letter-spacing: 2px;
+        text-shadow: 2px 2px 0 var(--dark-red);
+      }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+
+      a {
+        font-family: var(--pixel);
+        font-size: 0.55rem;
+        color: rgba(255,255,255,0.8);
+        text-decoration: none;
+        letter-spacing: 1px;
+        transition: color 0.15s;
+
+        &:hover, &.active { color: var(--yellow); }
+      }
+
+      .btn-new {
+        background: var(--yellow);
+        color: #111 !important;
+        padding: 0.45rem 0.9rem;
+        border-radius: 4px;
+        font-weight: 700;
+
+        &:hover { background: #e6c200; }
+      }
+    }
+  }
+}
+
+.dex-screen {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+  min-height: calc(100vh - 140px);
+}
+
+.dex-footer {
+  text-align: center;
+  padding: 1rem;
+  font-family: var(--pixel);
+  font-size: 0.45rem;
+  color: var(--muted);
+  letter-spacing: 2px;
+  border-top: 1px solid #222;
+}

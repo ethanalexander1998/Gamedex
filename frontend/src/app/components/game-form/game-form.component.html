@@ -1,0 +1,125 @@
+<div class="form-page">
+  <a routerLink="/dashboard" class="back-link">← BACK TO LIBRARY</a>
+
+  <div class="form-card">
+    <div class="form-header">
+      <h2>{{ isEdit ? 'EDIT ENTRY' : 'NEW ENTRY' }}</h2>
+    </div>
+
+    <div class="form-body">
+      @if (loading) {
+        <div class="state-msg">LOADING...</div>
+      } @else {
+
+        @if (!isEdit) {
+          <div class="search-section">
+            <label>SEARCH GAME DATABASE</label>
+            <div class="search-wrap">
+              <input
+                type="text"
+                [(ngModel)]="searchQuery"
+                (ngModelChange)="onSearchInput()"
+                name="searchQuery"
+                placeholder="Search RAWG for a game..."
+                autocomplete="off"
+              />
+              @if (searching) { <span class="search-spinner">⏳</span> }
+              @if (searchQuery) {
+                <button class="clear-btn" type="button" (click)="clearSearch()">✕</button>
+              }
+            </div>
+
+            @if (showResults) {
+              <div class="results-dropdown">
+                @for (r of searchResults; track r.rawgId) {
+                  <div class="result-item" (click)="pickResult(r)">
+                    @if (r.cover) {
+                      <img [src]="r.cover" [alt]="r.title" class="result-cover" />
+                    } @else {
+                      <div class="result-cover placeholder">🎮</div>
+                    }
+                    <div class="result-info">
+                      <span class="result-title">{{ r.title }}</span>
+                      <span class="result-meta">
+                        @if (r.genre) { {{ r.genre }} }
+                        @if (r.genre && r.released) { · }
+                        @if (r.released) { {{ r.released | date:'yyyy' }} }
+                        @if (r.rating) { · ⭐ {{ r.rating }} }
+                      </span>
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+
+          @if (selectedCover) {
+            <div class="selected-cover-wrap">
+              <img [src]="selectedCover" alt="cover" class="selected-cover" />
+            </div>
+          }
+
+          <div class="divider"><span>ENTRY DETAILS</span></div>
+        }
+
+        @if (error) {
+          <div class="alert-error">{{ error }}</div>
+        }
+
+        <form (ngSubmit)="submit()" #f="ngForm">
+          <div class="field">
+            <label>TITLE <span class="required">*</span></label>
+            <input type="text" [(ngModel)]="form.title" name="title" placeholder="e.g. Elden Ring" required />
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>PLATFORM</label>
+              <input type="text" [(ngModel)]="form.platform" name="platform" placeholder="e.g. PC, PS5, Switch" />
+            </div>
+            <div class="field">
+              <label>GENRE</label>
+              <input type="text" [(ngModel)]="form.genre" name="genre" placeholder="e.g. RPG, Action" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>STATUS <span class="required">*</span></label>
+              <select [(ngModel)]="form.status" name="status">
+                @for (s of statuses; track s) {
+                  <option [value]="s">{{ s }}</option>
+                }
+              </select>
+            </div>
+            <div class="field">
+              <label>SCORE (0–10) @if (requiresScore) { <span class="required">*</span> }</label>
+              <input
+                type="number"
+                [(ngModel)]="form.score"
+                name="score"
+                min="0"
+                max="10"
+                step="0.1"
+                placeholder="e.g. 8.5"
+                [required]="requiresScore"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>NOTES</label>
+            <textarea [(ngModel)]="form.notes" name="notes" rows="4" placeholder="Any thoughts on this game..."></textarea>
+          </div>
+
+          <div class="form-actions">
+            <a routerLink="/dashboard" class="btn-cancel">CANCEL</a>
+            <button type="submit" class="btn-save" [disabled]="submitting">
+              {{ submitting ? 'SAVING...' : (isEdit ? 'SAVE CHANGES' : 'ADD ENTRY') }}
+            </button>
+          </div>
+        </form>
+      }
+    </div>
+  </div>
+</div>

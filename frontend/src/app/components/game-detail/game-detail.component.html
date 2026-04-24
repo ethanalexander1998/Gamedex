@@ -1,0 +1,57 @@
+@if (loading) {
+  <div class="state-msg">LOADING...</div>
+} @else if (error) {
+  <div class="state-msg error">{{ error }}</div>
+} @else if (game) {
+  <div class="detail">
+    <a routerLink="/dashboard" class="back-link">← BACK TO LIBRARY</a>
+
+    <div class="detail-card">
+      @if (game['cover']) {
+        <img [src]="game['cover']" [alt]="game.title" class="cover-banner" />
+      } @else {
+        <div class="no-banner">🎮</div>
+      }
+
+      <div class="dex-screen-bar">
+        <span class="entry-label">GAMEDEX ENTRY</span>
+        @if (game.score !== null && game.score !== undefined) {
+          <span class="entry-score">{{ game.score.toFixed(1) }} / 10</span>
+        } @else {
+          <span class="entry-label">UNRATED</span>
+        }
+      </div>
+
+      <div class="detail-body">
+        <div class="detail-header">
+          <h1>{{ game.title }}</h1>
+          <span class="status-badge" [class]="statusClass(game.status)">{{ game.status }}</span>
+        </div>
+
+        <div class="meta">
+          @if (game.platform) { <span>📺 {{ game.platform }}</span> }
+          @if (game.genre) { <span>🎯 {{ game.genre }}</span> }
+        </div>
+
+        @if (game.notes) {
+          <div class="notes-section">
+            <h3>Notes</h3>
+            <p>{{ game.notes }}</p>
+          </div>
+        }
+
+        <div class="timestamps">
+          <span>ADDED: {{ game.createdAt | date:'mediumDate' }}</span>
+          @if (game.updatedAt !== game.createdAt) {
+            <span>UPDATED: {{ game.updatedAt | date:'mediumDate' }}</span>
+          }
+        </div>
+
+        <div class="actions">
+          <a [routerLink]="['/games', game._id, 'edit']" class="btn-edit">EDIT ENTRY</a>
+          <button (click)="delete()" class="btn-delete">DELETE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
