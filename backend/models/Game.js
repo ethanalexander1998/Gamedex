@@ -20,7 +20,8 @@ const gameSchema = new mongoose.Schema({
     }
   },
   notes: { type: String, trim: true },
-  cover: { type: String, default: null }
+  cover: { type: String, default: null },
+  rawgId: { type: Number, default: null }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Game', gameSchema);

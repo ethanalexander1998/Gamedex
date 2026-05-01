@@ -1,0 +1,173 @@
+.recs-page {
+  .page-header {
+    margin-bottom: 2rem;
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    h1 {
+      font-family: var(--pixel);
+      font-size: 1rem;
+      color: #fff;
+      text-shadow: 2px 2px 0 var(--dark-red);
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .refresh-btn {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 0.55rem 1.1rem;
+      font-family: var(--pixel);
+      font-size: 0.5rem;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: opacity 0.15s;
+
+      &:hover:not(:disabled) { opacity: 0.85; }
+      &:disabled { opacity: 0.5; cursor: not-allowed; }
+    }
+  }
+
+  .alert-error {
+    background: #2a0a00;
+    color: #f05030;
+    border: 1px solid #4a1a0a;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .state-msg {
+    text-align: center;
+    color: var(--muted);
+    padding: 4rem;
+    font-family: var(--pixel);
+    font-size: 0.55rem;
+    line-height: 2.5;
+  }
+
+  .recs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .rec-card {
+    background: var(--card);
+    border: 2px solid var(--card-border);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s, border-color 0.15s;
+
+    &:hover {
+      transform: translateY(-3px);
+      border-color: var(--red);
+    }
+
+    .cover-wrap {
+      width: 100%;
+      height: 130px;
+      overflow: hidden;
+      background: #0a0a0a;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.9;
+        transition: opacity 0.2s;
+      }
+
+      .no-cover {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+      }
+    }
+
+    &:hover .cover-wrap img { opacity: 1; }
+
+    .rec-body {
+      padding: 0.85rem 1rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      .title {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+      }
+
+      .meta {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+        margin-bottom: 0.5rem;
+
+        span {
+          font-size: 0.72rem;
+          color: var(--muted);
+          background: #111418;
+          padding: 0.15rem 0.45rem;
+          border-radius: 3px;
+          border: 1px solid var(--card-border);
+        }
+      }
+
+      .reason {
+        font-size: 0.78rem;
+        color: #6890f0;
+        font-style: italic;
+        margin-bottom: 0.5rem;
+      }
+
+      .rec-actions {
+        display: flex;
+        gap: 0.4rem;
+        margin-top: auto;
+        padding-top: 0.75rem;
+        border-top: 1px solid var(--card-border);
+
+        a, button {
+          flex: 1;
+          text-align: center;
+          padding: 0.35rem 0;
+          border-radius: 4px;
+          font-size: 0.72rem;
+          font-family: var(--pixel);
+          text-decoration: none;
+          cursor: pointer;
+          border: 1px solid transparent;
+          transition: all 0.15s;
+          letter-spacing: 0.3px;
+        }
+
+        .btn-add     { background: #1a3000; color: #78c850; border-color: #2a4a10; &:hover:not(:disabled) { background: #243a10; } &:disabled { opacity: 0.5; cursor: not-allowed; } }
+        .btn-added   { flex: 1; text-align: center; padding: 0.35rem 0; font-size: 0.72rem; font-family: var(--pixel); color: #78c850; letter-spacing: 0.3px; }
+        .btn-dismiss { background: #2a0a00; color: #f05030; border-color: #4a1a0a; &:hover { background: #3a1000; } }
+      }
+    }
+  }
+}
