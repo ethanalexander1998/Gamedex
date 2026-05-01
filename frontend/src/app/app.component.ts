@@ -7,4 +7,9 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {}
+export class AppComponent {
+
+    downloadGames() {
+    window.open('http://localhost:4200/api/export', '_blank');
+  }
+}
