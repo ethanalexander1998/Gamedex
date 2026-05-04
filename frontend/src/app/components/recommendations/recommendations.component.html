@@ -1,0 +1,60 @@
+<div class="recs-page">
+  <div class="page-header">
+    <div class="header-row">
+      <div>
+        <h1>RECOMMENDATIONS</h1>
+        <p class="subtitle">Based on your highest-rated games</p>
+      </div>
+      <button class="refresh-btn" (click)="generate()" [disabled]="generating || loading">
+        {{ generating ? '⏳ GENERATING...' : '↻ REFRESH' }}
+      </button>
+    </div>
+  </div>
+
+  @if (error) {
+    <div class="alert-error">{{ error }}</div>
+  }
+
+  @if (loading || generating) {
+    <div class="state-msg">{{ loading ? 'LOADING...' : 'GENERATING RECOMMENDATIONS...' }}</div>
+  } @else if (recommendations.length === 0) {
+    <div class="state-msg">
+      NO RECOMMENDATIONS YET.<br>
+      ADD GAMES WITH GENRES TO YOUR LIBRARY FIRST.
+    </div>
+  } @else {
+    <div class="recs-grid">
+      @for (rec of recommendations; track rec._id) {
+        <div class="rec-card">
+          <div class="cover-wrap">
+            @if (rec.cover) {
+              <img [src]="rec.cover" [alt]="rec.title" />
+            } @else {
+              <div class="no-cover">🎮</div>
+            }
+          </div>
+          <div class="rec-body">
+            <h3 class="title">{{ rec.title }}</h3>
+            <div class="meta">
+              @if (rec.genre) { <span>{{ rec.genre }}</span> }
+              @if (rec.platform) { <span>{{ rec.platform }}</span> }
+            </div>
+            <p class="reason">{{ rec.reason }}</p>
+            <div class="rec-actions">
+              @if (added.has(rec._id)) {
+                <span class="btn-added">✓ Added</span>
+              } @else {
+                <button
+                  (click)="addToLibrary(rec)"
+                  class="btn-add"
+                  [disabled]="adding.has(rec._id)"
+                >{{ adding.has(rec._id) ? '...' : '+ Add' }}</button>
+              }
+              <button (click)="dismiss(rec._id)" class="btn-dismiss">Dismiss</button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

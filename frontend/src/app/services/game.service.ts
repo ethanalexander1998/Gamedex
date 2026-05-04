@@ -21,8 +21,22 @@ export interface Game {
   score?: number | null;
   notes?: string;
   cover?: string | null;
+  rawgId?: number | null;
   createdAt?: string;
   updatedAt?: string;
+}
+
+export interface Recommendation {
+  _id: string;
+  basedOn: string;
+  basedOnTitle: string;
+  rawgId: number;
+  title: string;
+  genre?: string;
+  platform?: string;
+  cover?: string | null;
+  reason?: string;
+  dismissed: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -56,5 +70,17 @@ export class GameService {
 
   searchRawg(q: string): Observable<RawgResult[]> {
     return this.http.get<RawgResult[]>('/api/search', { params: { q } });
+  }
+
+  getRecommendations(): Observable<Recommendation[]> {
+    return this.http.get<Recommendation[]>('/api/recommendations');
+  }
+
+  generateRecommendations(): Observable<Recommendation[]> {
+    return this.http.post<Recommendation[]>('/api/recommendations/generate', {});
+  }
+
+  dismissRecommendation(id: string): Observable<Recommendation> {
+    return this.http.put<Recommendation>(`/api/recommendations/${id}/dismiss`, {});
   }
 }

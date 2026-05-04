@@ -84,6 +84,7 @@ export class GameFormComponent implements OnInit {
     this.form.platform = r.platform;
     this.form.genre = r.genre;
     this.form.cover = r.cover;
+    this.form.rawgId = r.rawgId;
     this.selectedCover = r.cover;
     this.searchQuery = '';
     this.searchResults = [];
