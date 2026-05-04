@@ -17,12 +17,22 @@ export class DashboardComponent implements OnInit {
   error = '';
 
   statusFilter = '';
+  platformFilter = '';
+  genreFilter = '';
   sortBy = 'newest';
   searchQuery = '';
   searchTimeout: any;
 
   statuses = ['Plan to Play', 'Playing', 'Completed', 'Dropped'];
   String = String;
+
+  get platforms(): string[] {
+    return [...new Set(this.games.map(g => g.platform).filter(Boolean) as string[])].sort();
+  }
+
+  get genres(): string[] {
+    return [...new Set(this.games.map(g => g.genre).filter(Boolean) as string[])].sort();
+  }
 
   constructor(private gameService: GameService) {}
 
@@ -32,7 +42,12 @@ export class DashboardComponent implements OnInit {
 
   load() {
     this.loading = true;
-    this.gameService.getAll(this.statusFilter || undefined, this.searchQuery.trim() || undefined).subscribe({
+    this.gameService.getAll(
+      this.statusFilter || undefined,
+      this.searchQuery.trim() || undefined,
+      this.platformFilter || undefined,
+      this.genreFilter || undefined
+    ).subscribe({
       next: games => {
         this.games = games;
         this.applyFilters();

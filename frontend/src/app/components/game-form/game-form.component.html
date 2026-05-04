@@ -85,6 +85,13 @@
 
           <div class="row">
             <div class="field">
+              <label>RELEASE YEAR</label>
+              <input type="number" [(ngModel)]="form.releaseYear" name="releaseYear" placeholder="e.g. 2022" min="1970" max="2030" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
               <label>STATUS <span class="required">*</span></label>
               <select [(ngModel)]="form.status" name="status">
                 @for (s of statuses; track s) {

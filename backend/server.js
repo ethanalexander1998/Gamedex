@@ -13,6 +13,7 @@ app.use('/api/games', require('./routes/games'));
 app.use('/api/search', require('./routes/search'));
 app.use('/api/recommendations', require('./routes/recommendations'));
 app.use('/api/export', require('./routes/export'));
+app.use('/api/stats', require('./routes/stats'));
 
 app.get('/', (req, res) => res.json({ message: 'Gamedex API running' }));
 

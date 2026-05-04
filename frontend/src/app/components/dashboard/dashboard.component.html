@@ -23,6 +23,18 @@
           <option [value]="s">{{ s }}</option>
         }
       </select>
+      <select [(ngModel)]="platformFilter" (ngModelChange)="onFilterChange()">
+        <option value="">All Platforms</option>
+        @for (p of platforms; track p) {
+          <option [value]="p">{{ p }}</option>
+        }
+      </select>
+      <select [(ngModel)]="genreFilter" (ngModelChange)="onFilterChange()">
+        <option value="">All Genres</option>
+        @for (g of genres; track g) {
+          <option [value]="g">{{ g }}</option>
+        }
+      </select>
       <select [(ngModel)]="sortBy" (ngModelChange)="applyFilters()">
         <option value="newest">Newest First</option>
         <option value="score">Highest Score</option>

@@ -22,8 +22,18 @@ export interface Game {
   notes?: string;
   cover?: string | null;
   rawgId?: number | null;
+  releaseYear?: number | null;
   createdAt?: string;
   updatedAt?: string;
+}
+
+export interface GameStats {
+  total: number;
+  completionRate: number;
+  avgScore: number | null;
+  byStatus: Record<string, number>;
+  byPlatform: [string, number][];
+  byGenre: [string, number][];
 }
 
 export interface Recommendation {
@@ -45,10 +55,12 @@ export class GameService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(status?: string, search?: string): Observable<Game[]> {
+  getAll(status?: string, search?: string, platform?: string, genre?: string): Observable<Game[]> {
     let params = new HttpParams();
     if (status) params = params.set('status', status);
     if (search) params = params.set('search', search);
+    if (platform) params = params.set('platform', platform);
+    if (genre) params = params.set('genre', genre);
     return this.http.get<Game[]>(this.api, { params });
   }
 
@@ -82,5 +94,9 @@ export class GameService {
 
   dismissRecommendation(id: string): Observable<Recommendation> {
     return this.http.put<Recommendation>(`/api/recommendations/${id}/dismiss`, {});
+  }
+
+  getStats(): Observable<GameStats> {
+    return this.http.get<GameStats>('/api/stats');
   }
 }

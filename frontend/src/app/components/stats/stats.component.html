@@ -1,0 +1,98 @@
+<div class="stats-page">
+  @if (loading) {
+    <div class="state-msg">LOADING...</div>
+  } @else if (error) {
+    <div class="state-msg error">{{ error }}</div>
+  } @else if (stats) {
+
+    <div class="page-header">
+      <h2>LIBRARY STATS</h2>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <span class="big-num">{{ stats.total }}</span>
+        <span class="big-label">TOTAL GAMES</span>
+      </div>
+      <div class="summary-card">
+        <span class="big-num">{{ stats.completionRate }}<span class="unit">%</span></span>
+        <span class="big-label">COMPLETION RATE</span>
+      </div>
+      <div class="summary-card">
+        @if (stats.avgScore !== null) {
+          <span class="big-num score-num">{{ stats.avgScore.toFixed(1) }}</span>
+        } @else {
+          <span class="big-num muted">—</span>
+        }
+        <span class="big-label">AVG SCORE</span>
+      </div>
+    </div>
+
+    <div class="breakdown-grid">
+
+      <div class="breakdown-card">
+        <h3>BY STATUS</h3>
+        <div class="bar-list">
+          @for (s of ['Plan to Play', 'Playing', 'Completed', 'Dropped']; track s) {
+            <div class="bar-row">
+              <span class="bar-label">{{ s }}</span>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  [class]="statusClass(s)"
+                  [style.width]="barWidth(stats.byStatus[s] || 0, stats.total)"
+                ></div>
+              </div>
+              <span class="bar-count">{{ stats.byStatus[s] || 0 }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="breakdown-card">
+        <h3>BY PLATFORM</h3>
+        @if (stats.byPlatform.length === 0) {
+          <p class="empty">No platform data yet.</p>
+        } @else {
+          <div class="bar-list">
+            @for (item of stats.byPlatform; track item[0]) {
+              <div class="bar-row">
+                <span class="bar-label">{{ item[0] }}</span>
+                <div class="bar-track">
+                  <div
+                    class="bar-fill accent"
+                    [style.width]="barWidth(item[1], maxOf(stats.byPlatform))"
+                  ></div>
+                </div>
+                <span class="bar-count">{{ item[1] }}</span>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="breakdown-card">
+        <h3>BY GENRE</h3>
+        @if (stats.byGenre.length === 0) {
+          <p class="empty">No genre data yet.</p>
+        } @else {
+          <div class="bar-list">
+            @for (item of stats.byGenre; track item[0]) {
+              <div class="bar-row">
+                <span class="bar-label">{{ item[0] }}</span>
+                <div class="bar-track">
+                  <div
+                    class="bar-fill yellow"
+                    [style.width]="barWidth(item[1], maxOf(stats.byGenre))"
+                  ></div>
+                </div>
+                <span class="bar-count">{{ item[1] }}</span>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+    </div>
+  }
+</div>

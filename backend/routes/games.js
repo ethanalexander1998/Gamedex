@@ -8,6 +8,8 @@ router.get('/', async (req, res) => {
     const filter = {};
     if (req.query.status) filter.status = req.query.status;
     if (req.query.search) filter.title = { $regex: req.query.search, $options: 'i' };
+    if (req.query.platform) filter.platform = { $regex: `^${req.query.platform}$`, $options: 'i' };
+    if (req.query.genre) filter.genre = { $regex: `^${req.query.genre}$`, $options: 'i' };
     const games = await Game.find(filter).sort({ createdAt: -1 });
     res.json(games);
   } catch (err) {

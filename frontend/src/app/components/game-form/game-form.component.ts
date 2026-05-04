@@ -27,7 +27,8 @@ export class GameFormComponent implements OnInit {
     genre: '',
     status: 'Plan to Play',
     score: null,
-    notes: ''
+    notes: '',
+    releaseYear: null
   };
 
   // search
@@ -85,6 +86,7 @@ export class GameFormComponent implements OnInit {
     this.form.genre = r.genre;
     this.form.cover = r.cover;
     this.form.rawgId = r.rawgId;
+    this.form.releaseYear = r.released ? parseInt(r.released.split('-')[0], 10) : null;
     this.selectedCover = r.cover;
     this.searchQuery = '';
     this.searchResults = [];
