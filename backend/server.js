@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 const allowedOrigins = [
   'http://localhost:4200', 
-  'https://gamedex-7oqf.onrender.com' 
+  'https://gamedex-i5kn.onrender.com' 
 ];
 
 app.use(cors({
