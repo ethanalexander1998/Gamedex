@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://gamedex-7oqf.onrender.com/' 
+  apiUrl: 'https://gamedex-7oqf.onrender.com/api' 
 };
