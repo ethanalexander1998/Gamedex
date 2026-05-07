@@ -262,6 +262,27 @@
       .btn-view   { background: #1a1a2e; color: #6890f0; border-color: #2a2a5e; &:hover { background: #2a2a4e; } }
       .btn-edit   { background: #1a3000; color: #78c850; border-color: #2a4a10; &:hover { background: #243a10; } }
       .btn-delete { background: #2a0a00; color: #f05030; border-color: #4a1a0a; &:hover { background: #3a1000; } }
+
+      //Phone
     }
   }
+        @media (max-width: 600px) {
+        .stats-bar .stat{
+          flex: 1 1 calc(50% - 0.375rem);
+          min-width: 0;
+        }
+        .toolbar {
+          .search-input{flex: 1 1 100%; min-width: 0;}
+          .filters {flex: 1;}
+          select {flex: 1; }
+          .count-label {margin-left: 0;}
+        }
+        .game-grid {grid-template-columns: 1fr;}
+
+        .game-card {
+          &:hover {transform: none;}
+          .card-actions a,
+          .card-actions button { min-height: 44px; padding: 0.5rem 0;}
+        }
+      }
 }

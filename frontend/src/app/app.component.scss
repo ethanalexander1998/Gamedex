@@ -100,3 +100,32 @@
   letter-spacing: 2px;
   border-top: 1px solid #222;
 }
+ @media (max-width: 600px) {
+          .dex-header {
+            .dex-nav{
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 0.6rem;
+              padding-bottom: 0.6rem;
+
+              .nav-links{
+                width: 100%;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+
+                a {font-size: 0.9rem;}
+
+                .btn-new{
+                  padding: 0.4rem 0.6rem;
+                  font-size: 0.7rem;
+                  flex-basis: 100%;
+                }
+
+              }
+            }
+          }
+          
+        .dex-screen{
+          padding: 1.25rem 0.75rem;
+        }
+      }
