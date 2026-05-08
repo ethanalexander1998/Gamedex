@@ -16,7 +16,7 @@
       <a routerLink="/dashboard" routerLinkActive="active">LIBRARY</a>
       <a routerLink="/recommendations" routerLinkActive="active">SUGGESTIONS</a>
       <a routerLink="/stats" routerLinkActive="active">STATS</a>
-      <a class="btn-new" href="http://localhost:3000/api/export">+ DOWNLOAD LIST</a>
+      <a class="btn-new" [href]="exportUrl">+ DOWNLOAD LIST</a>
       <a routerLink="/games/new" class="btn-new">+ NEW ENTRY</a>
     </div>
   </nav>
